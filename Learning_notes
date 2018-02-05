@@ -1,0 +1,122 @@
+https://docs.google.com/document/d/1zLbcdiNVOpSXhLOXGdJAoPploydOMnB6eLp17fPgHZM/edit?usp=sharing
+
+Every smart contract has its own address. 
+Very similar to a user account address.
+
+Use only fixed point number in banking - never floating point number
+
+When a smart contract is invoked, it gets some default params:
+msg.sender
+msg.value
+
+
+
+Coding
+
+Pragma - similar to import. pragma solidity ^0.4.0;
+
+Data types:
+String, Bool, Uint
+Unsigned vs signed: 
+Unsigned: Cannot have negative values, like uint age.
+Signed: Can have negative value
+address: Ethereum address
+
+Access modifier:
+Internal (Protected) - Available across the sol file
+Private - Within contract class only
+Public - Outside world
+
+Variable declaration:
+	dataType accessModifier varName
+
+Function declaration:
+function funcName(dataType varName) {
+//do something 
+}
+function funcName() returns (dataType) {return dataType}
+
+Contract/Object declaration:
+contract MyContractName {}
+
+Inheritance 
+Can inherit from another object using keyword “is”.
+Constructor - object name itself as a function within the contract/object.
+No real abstract method, but func defn alone - without implementation.
+Inherited object should implement all abstract methods for overcoming constraint.
+
+Interfaces
+Using keyword Interface
+Implemented same as Inherited object using “is”.
+Can set constraint.
+
+
+Modifier Constraints
+Method level access modifier.
+modifier ownerFunc { require (msg.sender == owner); _; } underscore for func exec.
+Implemented on a func as: 
+              function funcName () modifierName
+                { //do something }
+Can add multiple access modifier to a fn: fn funcName () m1 m2 { //blah }
+Note: 
+Was not able to add returns along with access modifier.
+
+
+
+Error handler
+Require - Check parameter is sent. Opcode is Revert. Gas consumed on msg sent. Gas is reverted.
+Assert - Validating input during run time. Data manipulation then assert. Gas consumed on message sent.
+Revert
+Throw - Don't use - Full GAS consumption
+
+Libraries:
+Solidity has limitations in String manipulation
+
+Reserved key - library
+library libname {
+	function increment () {}
+}
+import “browser/library.sol”;
+contract Libraries {
+	using libname for uint;
+
+	function test (uint _base) returns (uint) {
+		_base.increment();
+}
+}
+
+Then extend uint with functions added in library
+using libname as with wild char is also possible
+
+
+Can use Library in a static context - as in - it can be used just as a function.
+Ie., instead of:
+
+using libname for uint;
+function test (uint _base) returns (uint) {
+	_base.increment();
+}
+
+function test (uint _base) returns (uint) {
+	libname.increment(_base);
+}
+
+
+Fallback function
+Executed by default when calling the address of a smart contract
+Will not have a func name.
+
+	
+	- For calling a contract without a specifying the function within a contract.
+	event EventName(address);
+
+In depth Data types
+Array of uint8 - uint8[] varName
+Not yet implemented: fixed256x8 myFixed = 1
+Enum: enum Action {ADD, REMOVE} …… Action myAction = Action.ADD
+Struct: Object with no functions. Always need an instance
+Mapping:  Can be mapped only to a Struct, Enum or Contract 
+Storage, Memory, Stack
+
+
+
